@@ -2,6 +2,7 @@
   import { useStore1 } from "../store/store1";
   import { useStoreN } from "../store/storeN";
   import { Dialog } from "quasar";
+  import { onMounted, ref } from "vue";
 
   const store1 = useStore1();
   const storeN = useStoreN();
@@ -32,7 +33,7 @@
         storeN.data = {};
       })
       .onCancel(() => {
-        // router.push({ name: "xcard" });
+        // router.push("/xcard");
       });
   }
 
@@ -54,7 +55,7 @@
         showEditDialog.value = false;
       })
       .onCancel(() => {
-        // router.push({ name: "xcard" });
+        // router.push("/xcard");
       });
   }
 </script>
@@ -86,9 +87,12 @@
       </div>
     </div>
     <q-dialog v-model="showEditDialog" persistent>
-      <div class="row full-width justify-center bg-white q-pa-sm">
+      <div
+        class="row full-width justify-center q-pa-sm"
+        :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
+      >
         <div class="col-xs-12 q-gutter-md">
-          <q-form @reset="cancelEdit" @submit="submitEdit">
+          <q-form @reset="cancelEdit()" @submit="submitEdit()">
             <h5 class="text-center q-mt-sm q-mb-none">
               Edit advertisement ({{ Object.keys(storeN.data).length }})
             </h5>

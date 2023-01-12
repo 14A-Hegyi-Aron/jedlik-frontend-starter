@@ -2,6 +2,7 @@
   import { useStore1 } from "../store/store1";
   import { useStoreN } from "../store/storeN";
   import { date, Dialog } from "quasar";
+  import { onMounted, onUnmounted } from "vue";
   import router from "src/router";
 
   const storeN = useStoreN();
@@ -27,10 +28,10 @@
     })
       .onOk(() => {
         storeN.create();
-        router.push({ name: "xcard" });
+        router.push("/xcard");
       })
       .onCancel(() => {
-        // router.push({ name: "xcard" });
+        // router.push("/xcard");
       });
   }
 
@@ -47,7 +48,7 @@
   <q-page>
     <div v-if="storeN.data" class="row justify-center">
       <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-        <q-form @reset="onReset" @submit="onSubmit">
+        <q-form @reset="onReset()" @submit="onSubmit()">
           <h5 class="text-center q-mt-sm q-mb-none">
             Add new advertisement ({{ Object.keys(storeN.data).length }})
           </h5>

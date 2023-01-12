@@ -1,5 +1,7 @@
 <script setup lang="ts">
   import { useStoreN } from "../store/storeN";
+  import { onMounted, ref } from "vue";
+  import { QTableColumn } from "quasar";
   const storeN = useStoreN();
 
   onMounted(() => {
@@ -16,7 +18,7 @@
   }
 
   // Columns def template:
-  // const cols: any[] = [
+  // const cols: QTableColumn[] = [
   //   { name: "", label: "", field: "", align:"center" },
   // ];
 
@@ -32,7 +34,7 @@
 
   // sort with: sortable: true
   // align with (default right): align: "center"
-  const columns: any[] = [
+  const columns: QTableColumn[] = [
     { name: "id", label: "id", field: "id", align: "left" },
     { name: "categoryId", label: "categoryId", field: "categoryId" },
     { name: "titleField", label: "titleField", field: "titleField", align: "left" },
@@ -83,7 +85,7 @@
           color="red"
           label="Delete selected record"
           no-caps
-          @click="deleteRecord"
+          @click="deleteRecord()"
         />
       </div>
     </div>

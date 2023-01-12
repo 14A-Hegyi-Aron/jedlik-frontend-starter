@@ -2,6 +2,7 @@
   import { useStore1 } from "../store/store1";
   import { useStoreN } from "../store/storeN";
   import { Dialog } from "quasar";
+  import { onMounted, onUnmounted } from "vue";
   import router from "src/router";
 
   const storeN = useStoreN();
@@ -9,7 +10,7 @@
 
   onMounted(() => {
     if (storeN.data.id === undefined) {
-      router.push({ name: "xcard" });
+      router.push("/xcard");
     } else {
       store1.getAll();
       storeN.getById();
@@ -29,10 +30,10 @@
     })
       .onOk(() => {
         storeN.editById();
-        router.push({ name: "xcard" });
+        router.push("/xcard");
       })
       .onCancel(() => {
-        // router.push({ name: "xcard" });
+        // router.push("/xcard");
       });
   }
 </script>
