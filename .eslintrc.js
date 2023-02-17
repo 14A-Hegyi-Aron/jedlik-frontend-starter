@@ -7,19 +7,15 @@ module.exports = {
     es2021: true,
     "vue/setup-compiler-macros": true,
   },
-  parser: "vue-eslint-parser",
-  parserOptions: {
-    parser: "@typescript-eslint/parser",
-    ecmaVersion: 2021,
-    sourceType: "module",
-  },
   extends: [
-    "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:vue/vue3-recommended",
-    "prettier",
+    "@vue/eslint-config-typescript",
+    "@vue/eslint-config-prettier",
   ],
+  parserOptions: {
+    ecmaVersion: "latest",
+  },
   plugins: ["prettier", "@typescript-eslint"],
   globals: {
     defineProps: "readonly",

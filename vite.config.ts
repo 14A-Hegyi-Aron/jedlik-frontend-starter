@@ -12,6 +12,7 @@ export default defineConfig({
     alias: {
       src: resolve(__dirname, "src"),
       "~": resolve(__dirname, "src"),
+      "@": resolve(__dirname, "src"),
     },
   },
   define: {

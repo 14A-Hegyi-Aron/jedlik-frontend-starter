@@ -159,6 +159,9 @@
         :width="200"
       >
         <q-scroll-area class="fit">
+          <div class="q-ma-sm text-center">
+            You must start JSON server (with: "npm run backend") before try these links!
+          </div>
           <q-list>
             <template v-for="(menuItem, index) in rightMenuItems()" :key="index">
               <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
