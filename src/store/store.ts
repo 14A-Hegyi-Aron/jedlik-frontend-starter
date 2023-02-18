@@ -41,6 +41,7 @@ export interface IApp {
   showEditDialog: boolean;
   showNewDialog: boolean;
   filter: string;
+  selected: Array<any>;
 }
 
 // Interface for Pinia state:
@@ -90,6 +91,7 @@ export const useStore = defineStore({
       showEditDialog: false,
       showNewDialog: false,
       filter: "",
+      selected: [],
     },
   }),
   getters: {},

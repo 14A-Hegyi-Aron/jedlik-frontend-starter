@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useStore } from "../store/store";
-  import { onMounted, ref } from "vue";
+  import { onMounted } from "vue";
   import { QTableColumn } from "quasar";
   const store = useStore();
 
@@ -9,15 +9,21 @@
   });
 
   // Selected row(s) -> selection="single" or selection="multiple"
-  const selected = ref<any>([]);
+  // const selected = ref<any>([]);
 
   function deleteRecord(): void {
-    store.many.document = { id: selected.value[0].id };
+    // store.many.document = { id: selected.value[0].id };
+    store.many.document = { id: store.app.selected[0].id };
     store.many_DeleteById();
-    selected.value = [];
+    // selected.value = [];
+    store.app.selected = [];
   }
 
   function filterUpdate() {
+    // Clear button (x) set filter to null
+    if (!store.app.filter) {
+      store.app.filter = "";
+    }
     if (store.app.filter.length > 0) {
       store.many_Filter();
     } else {
@@ -65,6 +71,7 @@
     <div class="q-pa-md">
       <q-input
         v-model="store.app.filter"
+        clearable
         dense
         filled
         label="Filter"
@@ -72,11 +79,11 @@
         @update:model-value="filterUpdate()"
       />
       <q-table
-        v-model:selected="selected"
+        v-model:selected="store.app.selected"
         :columns="columns"
         dense
         :rows="store.many.documents"
-        selection="single"
+        selection="multiple"
         title="Advertisements"
         wrap-cells
       >
@@ -90,22 +97,35 @@
         <!-- slot2: -->
         <template #body-cell-imgField="props">
           <q-td :props="props">
-            <img :src="props.value" style="max-height: 100px" />
+            <q-img class="myImg" :src="props.value" width="300px" />
           </q-td>
         </template>
       </q-table>
       <!-- Button for delete selected record: -->
       <div class="row justify-center q-ma-md">
         <q-btn
-          v-show="selected.length != 0"
+          v-show="store.app.selected.length == 1"
           color="red"
           label="Delete selected record"
           no-caps
           @click="deleteRecord()"
         />
+        <q-btn
+          v-show="store.app.selected.length != 0"
+          class="q-ml-md"
+          color="green"
+          :label="store.app.selected.length == 1 ? 'Clear selection' : 'Clear selections'"
+          no-caps
+          @click="store.app.selected = []"
+        />
       </div>
     </div>
+    {{ store.app.selected }}
   </q-page>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .myImg {
+    border-radius: 10%;
+  }
+</style>

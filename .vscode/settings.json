@@ -45,4 +45,5 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "editor.mouseWheelZoom": true,
+  "volar.inlayHints.eventArgumentInInlineHandlers": false,
 }
