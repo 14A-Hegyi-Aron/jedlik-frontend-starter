@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Index from "./pages/index.vue";
+
+// === Example imorts ===
 import xEmpty from "./pages/xEmpty.vue";
 import xHelp from "./pages/xHELP.vue";
 import xCard from "./pages/xcard.vue";
@@ -12,6 +14,8 @@ const routes: Array<RouteRecordRaw> = [
     name: "index",
     component: Index,
   },
+
+  // #region === Example routes
   {
     path: "/empty",
     name: "empty",
@@ -37,6 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "qhelp",
     component: xHelp,
   },
+  // #endregion
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
