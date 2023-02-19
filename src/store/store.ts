@@ -5,6 +5,7 @@ import { Notify, Loading } from "quasar";
 
 // ====================== INTERFACES ==================================
 // Convert JSON document to TS Interface quickly: https://transform.tools/json-to-typescript
+
 // Interface for one (1) side:
 interface IOne {
   id?: number;
@@ -238,6 +239,7 @@ export const useStore = defineStore({
           });
       }
     },
+
     // ============== OTHERSIDE actions ===========================================
     async other_Create(): Promise<void> {
       if (this.other?.document) {
