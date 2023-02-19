@@ -10,6 +10,7 @@
   // onMounted(() => {
   // });
 
+  // #region menuItems
   function menuItems() {
     return [
       {
@@ -30,7 +31,9 @@
       },
     ];
   }
+  // #endregion
 
+  // #region rightMenuItems
   function rightMenuItems() {
     return [
       {
@@ -67,12 +70,13 @@
       },
     ];
   }
+  // #endregion
 </script>
 
 <template>
   <div class="q-pa-md">
     <q-layout view="hHh LpR fFf">
-      <!-- 1. Menu bar: -->
+      <!-- #region 1. Menu bar: -->
       <q-header
         v-model="store.app.showMenuBar"
         class="text-left bg-primary"
@@ -122,8 +126,9 @@
           />
         </q-toolbar>
       </q-header>
+      <!-- #endregion -->
 
-      <!-- 2. Left drawer: -->
+      <!-- #region 2. Left drawer: -->
       <q-drawer
         v-model="store.app.showLeftDrawer"
         bordered
@@ -148,8 +153,9 @@
           </q-list>
         </q-scroll-area>
       </q-drawer>
+      <!-- #endregion -->
 
-      <!-- 3. Right drawer: -->
+      <!-- #region 3. Right drawer: -->
       <q-drawer
         v-model="store.app.showRightDrawer"
         bordered
@@ -178,8 +184,9 @@
           </q-list>
         </q-scroll-area>
       </q-drawer>
+      <!-- #endregion -->
 
-      <!-- 4. Taskbar: -->
+      <!-- #region 4. Taskbar: -->
       <q-footer
         v-model="store.app.showTaskBar"
         :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-blue-5'"
@@ -192,8 +199,9 @@
           </q-toolbar-title>
         </q-toolbar>
       </q-footer>
+      <!-- #endregion -->
 
-      <!-- 5. Main content (pages): -->
+      <!-- #region 5. Main content (pages): -->
       <q-page-container id="container">
         <router-view v-slot="{ Component }">
           <transition name="fade">
@@ -201,6 +209,7 @@
           </transition>
         </router-view>
       </q-page-container>
+      <!-- #endregion -->
     </q-layout>
   </div>
 </template>

@@ -3,16 +3,17 @@ import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
 // import router from "src/router";
 
-// ====================== INTERFACES ==================================
+// === INTERFACES ===
 // Convert JSON document to TS Interface quickly: https://transform.tools/json-to-typescript
 
-// Interface for one (1) side:
+// #region === IOne - Interface for one (1) side ===
 interface IOne {
   id?: number;
   categoryNameField?: string;
 }
+// #endregion
 
-// Interface for many (N) side:
+// #region === IMany - Interface for many (N) side ===
 export interface IMany {
   id?: number; // PK
   categoryId?: number; // FK
@@ -27,13 +28,15 @@ export interface IMany {
     categoryNameField?: string;
   };
 }
+// #endregion
 
-// Interface for other collection (table):
+// #region === IOther - Interface for other collection (table) ===
 export interface IOther {
   id?: number; // PK
 }
+// #endregion
 
-// Interface for App store (common store):
+// #region === IApp - Interface for App store (common store) ===
 export interface IApp {
   showLeftDrawer: boolean;
   showRightDrawer: boolean;
@@ -44,8 +47,9 @@ export interface IApp {
   filter: string;
   selected: Array<any>;
 }
+// #endregion
 
-// Interface for Pinia state:
+// #region === IState - Interface for Pinia state ===
 interface IState {
   one: {
     // For handle CRUD operations:
@@ -65,7 +69,9 @@ interface IState {
   };
   app: IApp;
 }
+// #endregion
 
+// === DEFINE PINIA STORE ===
 export const useStore = defineStore({
   id: "store",
   state: (): IState => ({
@@ -97,7 +103,7 @@ export const useStore = defineStore({
   }),
   getters: {},
   actions: {
-    // ============== ONE-SIDE actions ===========================================
+    // #region === ONE-SIDE actions ===
     async one_GetAll(): Promise<void> {
       Loading.show();
       this.one.documents = [];
@@ -113,8 +119,9 @@ export const useStore = defineStore({
           ShowErrorWithNotify(error);
         });
     },
+    // #endregion
 
-    // ============== MANY-SIDE actions ===========================================
+    // #region === MANY-SIDE actions ===
     async many_GetAll(): Promise<void> {
       Loading.show();
       this.many.documents = [];
@@ -239,8 +246,9 @@ export const useStore = defineStore({
           });
       }
     },
+    // #endregion
 
-    // ============== OTHERSIDE actions ===========================================
+    // #region === OTHER-SIDE actions ===
     async other_Create(): Promise<void> {
       if (this.other?.document) {
         Loading.show();
@@ -262,6 +270,7 @@ export const useStore = defineStore({
           });
       }
     },
+    // #endregion
   },
   // all "state" data is stored in browser session store:
   persist: {
@@ -276,13 +285,16 @@ export const useStore = defineStore({
   // },
 });
 
+// #region === Set Notify dialogs defaults ===
 Notify.setDefaults({
   position: "top",
   textColor: "yellow",
   timeout: 3000,
   actions: [{ icon: "close", color: "white" }],
 });
+// #endregion
 
+// #region === ShowErrorWithNotify() - Universal Notify dialog ===
 function ShowErrorWithNotify(error: any): void {
   Loading.hide();
   let msg = "Hiba!";
@@ -309,6 +321,6 @@ function ShowErrorWithNotify(error: any): void {
   } else {
     msg += " Unknow error message";
   }
-
   Notify.create({ message: msg, color: "negative" });
 }
+// #endregion

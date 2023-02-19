@@ -4,7 +4,7 @@
 
   const store = useStore();
 
-  const slide = ref(store.many.documents[0].id);
+  const currentSlide = ref(1);
   const autoplay = ref(2000);
 
   onMounted(() => {
@@ -15,7 +15,7 @@
 <template>
   <q-page class="q-pa-xl">
     <q-carousel
-      v-model="slide"
+      v-model="currentSlide"
       animated
       arrows
       :autoplay="autoplay"
@@ -43,6 +43,7 @@
         </div>
       </q-carousel-slide>
     </q-carousel>
+    {{ currentSlide }}
   </q-page>
 </template>
 
