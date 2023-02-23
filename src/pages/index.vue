@@ -1,10 +1,30 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { onMounted } from "vue";
+  import { useStore } from "../store/store";
+
+  const store = useStore();
+
+  onMounted(() => {
+    store.one_GetAll();
+    store.one.document.nev = store.one.documents[0].nev;
+  });
+</script>
 
 <template>
   <q-page>
-    <div class="column flex-center" style="min-height: inherit">
-      <img alt="Jedlik logo" class="q-ma-md" src="src/assets/Jedlik_big.png" />
-      <h2>Jedlik Ányos Technikum - Győr</h2>
+    <div class="row justify-center">
+      <q-select
+        v-model="store.app.selectedCategory"
+        clearable
+        emit-value
+        filled
+        label="categoryNameField"
+        map-options
+        option-label="nev"
+        option-value="nev"
+        :options="store.one.documents"
+        :rules="[(v) => v != null || 'Please choose one!']"
+      />
     </div>
   </q-page>
 </template>

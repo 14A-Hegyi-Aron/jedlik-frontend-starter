@@ -1,6 +1,6 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
-import { Notify, Loading } from "quasar";
+import { Notify, Loading, TouchSwipe } from "quasar";
 // import router from "src/router";
 
 // === INTERFACES ===
@@ -9,6 +9,7 @@ import { Notify, Loading } from "quasar";
 // #region === IOne - Interface for one (1) side ===
 interface IOne {
   id?: number;
+  nev?: string;
   categoryNameField?: string;
 }
 // #endregion
@@ -25,6 +26,7 @@ export interface IMany {
   imgField?: string;
   category?: {
     id?: number;
+    nev?: string;
     categoryNameField?: string;
   };
 }
@@ -38,14 +40,13 @@ export interface IOther {
 
 // #region === IApp - Interface for App store (common store) ===
 export interface IApp {
-  showLeftDrawer: boolean;
-  showRightDrawer: boolean;
   showMenuBar: boolean;
-  showTaskBar: boolean;
   showEditDialog: boolean;
   showNewDialog: boolean;
   filter: string;
   selected: Array<any>;
+  disableEmptyPage: boolean;
+  selectedCategory: string;
 }
 // #endregion
 
@@ -92,13 +93,12 @@ export const useStore = defineStore({
     },
     app: {
       showMenuBar: true,
-      showLeftDrawer: true,
-      showRightDrawer: true,
-      showTaskBar: true,
       showEditDialog: false,
       showNewDialog: false,
       filter: "",
       selected: [],
+      disableEmptyPage: false,
+      selectedCategory: "",
     },
   }),
   getters: {},
@@ -113,6 +113,7 @@ export const useStore = defineStore({
           Loading.hide();
           if (res?.data) {
             this.one.documents = res.data;
+            this.app.selectedCategory = <string>this.one.documents[0].nev;
           }
         })
         .catch((error) => {

@@ -1,7 +1,7 @@
 <!-- Material Design Icons: https://materialdesignicons.com/ -->
 
 <script setup lang="ts">
-  // import router from "src/router";
+  import router from "src/router";
   import { useStore } from "./store/store";
   // import { onMounted } from "vue";
 
@@ -28,45 +28,6 @@
         route: "/empty",
         disabled: false,
         separator: false,
-      },
-    ];
-  }
-  // #endregion
-
-  // #region rightMenuItems
-  function rightMenuItems() {
-    return [
-      {
-        icon: "mdi-table",
-        text: "xTable",
-        name: "xtable",
-        route: "/xtable",
-        disabled: false,
-        separator: false,
-      },
-      {
-        icon: "mdi-card-account-details",
-        text: "xCard",
-        name: "xcard",
-        route: "/xcard",
-        disabled: false,
-        separator: false,
-      },
-      {
-        icon: "mdi-view-carousel-outline",
-        text: "xCarousel",
-        name: "xcard",
-        route: "/xcarousel",
-        disabled: false,
-        separator: false,
-      },
-      {
-        icon: "mdi-lifebuoy",
-        text: "xHelp",
-        name: "xhelp",
-        route: "/xhelp",
-        disabled: false,
-        separator: true,
       },
     ];
   }
@@ -103,17 +64,17 @@
             </q-avatar>
             Jedlik
           </q-toolbar-title> -->
-          <template v-for="(menuItem, index) in menuItems()" :key="index">
-            <q-btn
-              clickable
-              :disable="menuItem.disabled"
-              flat
-              :icon="menuItem.icon"
-              :label="menuItem.text"
-              no-caps
-              :to="menuItem.route"
-            />
-          </template>
+          <q-toolbar-title :shrink="true" style="cursor: pointer" @click="router.push('/')">
+            HaHu
+          </q-toolbar-title>
+          <q-btn clickable :disable="store.app.disableEmptyPage" flat label="Kezdő oldal" to="/" />
+          <q-btn
+            clickable
+            :disable="!store.app.disableEmptyPage"
+            flat
+            label="Üres oldal"
+            to="/empty"
+          />
           <q-toolbar-title class="my-title" />
 
           <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
@@ -169,7 +130,7 @@
             You must start JSON server (with: "npm run backend") before try these links!
           </div>
           <q-list>
-            <template v-for="(menuItem, index) in rightMenuItems()" :key="index">
+            <template v-for="(menuItem, index) in menuItems()" :key="index">
               <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
                 <q-item-section avatar>
                   <q-icon :name="menuItem.icon" />
