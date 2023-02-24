@@ -1,7 +1,7 @@
 <!-- Material Design Icons: https://materialdesignicons.com/ -->
 
 <script setup lang="ts">
-  // import router from "src/router";
+  import router from "src/router";
   import { useStore } from "./store/store";
   // import { onMounted } from "vue";
 
@@ -9,29 +9,6 @@
 
   // onMounted(() => {
   // });
-
-  // #region menuItems
-  function menuItems() {
-    return [
-      {
-        icon: "mdi-home",
-        text: "Start Page",
-        name: "startPage",
-        route: "/",
-        disabled: false,
-        separator: false,
-      },
-      {
-        icon: "mdi-application-outline",
-        text: "Empty page",
-        name: "emtyPage",
-        route: "/empty",
-        disabled: false,
-        separator: false,
-      },
-    ];
-  }
-  // #endregion
 
   // #region rightMenuItems
   function rightMenuItems() {
@@ -85,60 +62,28 @@
         reveal
       >
         <q-toolbar>
-          <q-btn
-            dense
-            flat
-            icon="mdi-menu"
-            round
-            @click="store.app.showLeftDrawer = !store.app.showLeftDrawer"
-          />
-          <!-- <q-toolbar-title
-            class="my-title"
-            :shrink="true"
-            style="cursor: pointer"
-            @click="router.push('/')"
-          >
+          <q-btn dense flat icon="mdi-menu" round @click="store.app.showLeftDrawer = !store.app.showLeftDrawer" />
+          <q-toolbar-title class="my-title" :shrink="true" style="cursor: pointer" @click="router.push('/')">
             <q-avatar>
               <img src="./assets/Jedlik_small.png" />
             </q-avatar>
             Jedlik
-          </q-toolbar-title> -->
-          <template v-for="(menuItem, index) in menuItems()" :key="index">
-            <q-btn
-              clickable
-              :disable="menuItem.disabled"
-              flat
-              :icon="menuItem.icon"
-              :label="menuItem.text"
-              no-caps
-              :to="menuItem.route"
-            />
-          </template>
+          </q-toolbar-title>
+          <q-btn clickable flat icon="mdi-home" label="Home" no-caps to="/" />
+          <q-btn clickable flat icon="mdi-application-outline" label="Empty" no-caps to="/empty" />
           <q-toolbar-title class="my-title" />
-
-          <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
-          <q-btn
-            dense
-            flat
-            icon="mdi-menu"
-            round
-            @click="store.app.showRightDrawer = !store.app.showRightDrawer"
-          />
+          <q-btn dense flat icon="mdi-menu" round @click="store.app.showRightDrawer = !store.app.showRightDrawer" />
         </q-toolbar>
       </q-header>
       <!-- #endregion -->
 
       <!-- #region 2. Left drawer: -->
-      <q-drawer
-        v-model="store.app.showLeftDrawer"
-        bordered
-        :breakpoint="500"
-        :class="$q.dark.isActive ? 'bg-grey-8' : 'bg-blue-1'"
-        :width="200"
-      >
+      <q-drawer v-model="store.app.showLeftDrawer" bordered :breakpoint="500" :width="200">
         <q-scroll-area class="fit">
+          <q-btn clickable flat icon="mdi-home" label="Home" no-caps to="/" />
+          <q-btn clickable flat icon="mdi-application-outline" label="Empty" no-caps to="/empty" />
           <q-list>
-            <template v-for="(menuItem, index) in menuItems()" :key="index">
+            <!-- <template v-for="(menuItem, index) in menuItems()" :key="index">
               <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
                 <q-item-section avatar>
                   <q-icon :name="menuItem.icon" />
@@ -148,7 +93,7 @@
                 </q-item-section>
               </q-item>
               <q-separator v-if="menuItem.separator" :key="'sep' + index" />
-            </template>
+            </template> -->
             <q-separator />
           </q-list>
         </q-scroll-area>
@@ -187,16 +132,9 @@
       <!-- #endregion -->
 
       <!-- #region 4. Taskbar: -->
-      <q-footer
-        v-model="store.app.showTaskBar"
-        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-blue-5'"
-        elevated
-        reveal
-      >
+      <q-footer v-model="store.app.showTaskBar" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-blue-5'" elevated reveal>
         <q-toolbar>
-          <q-toolbar-title class="text-center my-title">
-            Jedlik frontend template 2023
-          </q-toolbar-title>
+          <q-toolbar-title class="text-center my-title">Jedlik frontend template 2023</q-toolbar-title>
         </q-toolbar>
       </q-footer>
       <!-- #endregion -->

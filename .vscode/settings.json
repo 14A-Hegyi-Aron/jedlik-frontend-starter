@@ -39,7 +39,6 @@
     "**/src/modules": true,
     "**/src/env.d.ts": true,
     "**/src/main.ts": true,
-    
     "**/tsconfig.json": true,
     "**/vite.config.ts": true,
     "**/routes.json": true,
@@ -56,4 +55,5 @@
   },
   "editor.mouseWheelZoom": true,
   "volar.inlayHints.eventArgumentInInlineHandlers": false,
+  "prettier.printWidth": 120,
 }
