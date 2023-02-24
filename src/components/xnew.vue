@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useStore } from "../store/store";
+  import { useStore } from "src/store/store";
   import { date, Dialog } from "quasar";
   //   import router from "src/router";
 

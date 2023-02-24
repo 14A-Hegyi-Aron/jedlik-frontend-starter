@@ -1,4 +1,4 @@
-import $axios from "./axios.instance";
+import $axios from "src/store/axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
 // import router from "src/router";
@@ -6,14 +6,18 @@ import { Notify, Loading } from "quasar";
 // === INTERFACES ===
 // Convert JSON document to TS Interface quickly: https://transform.tools/json-to-typescript
 
-// #region === IOne - Interface for one (1) side ===
+export interface IApp {
+  showEditDialog: boolean;
+  showNewDialog: boolean;
+  filter: string;
+  selected: Array<any>;
+}
+
 interface IOne {
   id?: number;
   categoryNameField?: string;
 }
-// #endregion
 
-// #region === IMany - Interface for many (N) side ===
 export interface IMany {
   id?: number; // PK
   categoryId?: number; // FK
@@ -28,34 +32,17 @@ export interface IMany {
     categoryNameField?: string;
   };
 }
-// #endregion
 
-// #region === IOther - Interface for other collection (table) ===
 export interface IOther {
   id?: number; // PK
 }
-// #endregion
 
-// #region === IApp - Interface for App store (common store) ===
-export interface IApp {
-  showLeftDrawer: boolean;
-  showRightDrawer: boolean;
-  showMenuBar: boolean;
-  showTaskBar: boolean;
-  showEditDialog: boolean;
-  showNewDialog: boolean;
-  filter: string;
-  selected: Array<any>;
-}
-// #endregion
-
-// #region === IState - Interface for Pinia state ===
 interface IState {
   one: {
     // For handle CRUD operations:
-    document: IOne; // use for create, update, delete and read one document
+    document: IOne; // use for create, update, delete and store one document
     documentOld: IOne; // use for only edit (diff and restore)
-    documents: IOne[]; // use for only read many documents
+    documents: IOne[]; // use for only store many documents
   };
   many: {
     document: IMany;
@@ -69,9 +56,7 @@ interface IState {
   };
   app: IApp;
 }
-// #endregion
 
-// === DEFINE PINIA STORE ===
 export const useStore = defineStore({
   id: "store",
   state: (): IState => ({
@@ -91,10 +76,6 @@ export const useStore = defineStore({
       documents: [],
     },
     app: {
-      showMenuBar: true,
-      showLeftDrawer: true,
-      showRightDrawer: true,
-      showTaskBar: true,
       showEditDialog: false,
       showNewDialog: false,
       filter: "",
@@ -103,7 +84,6 @@ export const useStore = defineStore({
   }),
   getters: {},
   actions: {
-    // #region === ONE-SIDE actions ===
     async one_GetAll(): Promise<void> {
       Loading.show();
       this.one.documents = [];
@@ -119,9 +99,7 @@ export const useStore = defineStore({
           ShowErrorWithNotify(error);
         });
     },
-    // #endregion
 
-    // #region === MANY-SIDE actions ===
     async many_GetAll(): Promise<void> {
       Loading.show();
       this.many.documents = [];
@@ -137,6 +115,7 @@ export const useStore = defineStore({
           ShowErrorWithNotify(error);
         });
     },
+
     async many_GetById(): Promise<void> {
       if (this.many?.document?.id) {
         Loading.show();
@@ -155,6 +134,7 @@ export const useStore = defineStore({
           });
       }
     },
+
     async many_Filter(): Promise<void> {
       if (this.app?.filter) {
         this.many.documents = [];
@@ -172,6 +152,7 @@ export const useStore = defineStore({
           });
       }
     },
+
     async many_EditById(): Promise<void> {
       if (this.many?.document?.id) {
         const diff: any = {};
@@ -206,6 +187,7 @@ export const useStore = defineStore({
         }
       }
     },
+
     async many_DeleteById(): Promise<void> {
       if (this.many?.document?.id) {
         Loading.show();
@@ -224,6 +206,7 @@ export const useStore = defineStore({
           });
       }
     },
+
     async many_Create(): Promise<void> {
       if (this.many?.document) {
         Loading.show();
@@ -246,9 +229,7 @@ export const useStore = defineStore({
           });
       }
     },
-    // #endregion
 
-    // #region === OTHER-SIDE actions ===
     async other_Create(): Promise<void> {
       if (this.other?.document) {
         Loading.show();
@@ -270,7 +251,6 @@ export const useStore = defineStore({
           });
       }
     },
-    // #endregion
   },
   // all "state" data is stored in browser session store:
   persist: {
@@ -285,16 +265,13 @@ export const useStore = defineStore({
   // },
 });
 
-// #region === Set Notify dialogs defaults ===
 Notify.setDefaults({
   position: "top",
   textColor: "yellow",
   timeout: 3000,
   actions: [{ icon: "close", color: "white" }],
 });
-// #endregion
 
-// #region === ShowErrorWithNotify() - Universal Notify dialog ===
 function ShowErrorWithNotify(error: any): void {
   Loading.hide();
   let msg = "Hiba!";
@@ -323,4 +300,3 @@ function ShowErrorWithNotify(error: any): void {
   }
   Notify.create({ message: msg, color: "negative" });
 }
-// #endregion

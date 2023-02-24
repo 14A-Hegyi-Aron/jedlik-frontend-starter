@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Index from "./pages/index.vue";
+import Index from "src/pages/index.vue";
 
 // === Example imorts ===
-import xEmpty from "./pages/xEmpty.vue";
-import xHelp from "./pages/xHELP.vue";
-import xCard from "./pages/xcard.vue";
-import xCarousel from "./pages/xcarousel.vue";
-import xTable from "./pages/xtable.vue";
+import xEmpty from "src/pages/xEmpty.vue";
+import xHelp from "src/pages/xHELP.vue";
+import xCard from "src/pages/xcard.vue";
+import xCarousel from "src/pages/xcarousel.vue";
+import xTable from "src/pages/xtable.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
