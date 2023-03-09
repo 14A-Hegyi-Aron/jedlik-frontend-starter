@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const $axios = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://hahu.cyclic.app",
   withCredentials: true,
 });
 

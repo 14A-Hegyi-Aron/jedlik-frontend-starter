@@ -1,10 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { onMounted } from "vue";
+  import { useStore } from "src/store/store";
+
+  const store = useStore();
+
+  onMounted(() => {
+    store.one_GetAll();
+  });
+</script>
 
 <template>
   <q-page>
-    <div class="column flex-center" style="min-height: inherit">
-      <img alt="Jedlik logo" class="q-ma-md" src="src/assets/Jedlik_big.png" />
-      <h2>Jedlik Ányos Technikum - Győr</h2>
+    <div class="row justify-center">
+      <q-select v-model="store.app.selectedCategory" label="Kategória" :options="store.one.documents" />
+      {{ store.app.selectedCategory }}
     </div>
   </q-page>
 </template>

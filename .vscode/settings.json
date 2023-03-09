@@ -19,7 +19,7 @@
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll": true
   },
   "git.enableSmartCommit": true,
   "git.confirmSync": false,

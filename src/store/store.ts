@@ -11,11 +11,12 @@ export interface IApp {
   showNewDialog: boolean;
   filter: string;
   selected: Array<any>;
+  selectedCategory: string;
 }
 
 interface IOne {
   id?: number;
-  categoryNameField?: string;
+  name?: string;
 }
 
 export interface IMany {
@@ -80,6 +81,7 @@ export const useStore = defineStore({
       showNewDialog: false,
       filter: "",
       selected: [],
+      selectedCategory: "",
     },
   }),
   getters: {},
