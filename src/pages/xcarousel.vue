@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useStore } from "../store/store";
+  import { useStore } from "src/store/store";
   import { onMounted, ref } from "vue";
 
   const store = useStore();
@@ -34,10 +34,7 @@
         :img-src="e.imgField"
         :name="e.id"
       >
-        <div
-          class="text-center rounded-borders q-pa-xs q-ma-xl"
-          style="background-color: rgba(10, 10, 10, 0.3)"
-        >
+        <div class="text-center rounded-borders q-pa-xs q-ma-xl" style="background-color: rgba(10, 10, 10, 0.3)">
           <h3>{{ e.titleField }}</h3>
           {{ e.descField }}
         </div>

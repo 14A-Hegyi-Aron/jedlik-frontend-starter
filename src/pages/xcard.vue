@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { useStore } from "../store/store";
+  import { useStore } from "src/store/store";
   import { Dialog } from "quasar";
   import { onMounted } from "vue";
-  import xEdit from "../components/xedit.vue";
-  import xNew from "../components/xnew.vue";
+  import xEdit from "src/components/xedit.vue";
+  import xNew from "src/components/xnew.vue";
 
   const store = useStore();
 
@@ -47,14 +47,7 @@
 
 <template>
   <q-page class="q-pa-md">
-    <q-input
-      v-model="store.app.filter"
-      dense
-      filled
-      label="Filter"
-      type="text"
-      @update:model-value="filterUpdate()"
-    />
+    <q-input v-model="store.app.filter" dense filled label="Filter" type="text" @update:model-value="filterUpdate()" />
     <div class="row">
       <div v-for="e in store.many.documents" :key="e.id" class="col-sm-12 col-md-6 col-lg-4">
         <q-card class="q-ma-md">
@@ -63,9 +56,7 @@
               {{ e.category!.categoryNameField }} -
               {{ new Date(e.dateField!).toLocaleDateString() }}
             </div>
-            <div class="text-h7 absolute-bottom text-left">
-              {{ e.titleField }} - {{ e.priceField }} Ft
-            </div>
+            <div class="text-h7 absolute-bottom text-left">{{ e.titleField }} - {{ e.priceField }} Ft</div>
           </q-img>
           <q-card-section>
             <q-badge v-if="e.boolField" color="green" label="yes" outline />

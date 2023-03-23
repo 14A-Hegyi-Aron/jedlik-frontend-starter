@@ -3,9 +3,15 @@
 <script setup lang="ts">
   import router from "src/router";
   import { useStore } from "./store/store";
+  import { ref } from "vue";
   // import { onMounted } from "vue";
+  // import { useStore } from "src/store/store";
+  // const store = useStore();
 
-  const store = useStore();
+  let showMenuBar = ref(true);
+  let showLeftDrawer = ref(true);
+  let showRightDrawer = ref(true);
+  let showStatusBar = ref(true);
 
   // onMounted(() => {
   // });
@@ -37,98 +43,71 @@
 <template>
   <div class="q-pa-md">
     <q-layout view="hHh LpR fFf">
-      <!-- #region 1. Menu bar: -->
-      <q-header
-        v-model="store.app.showMenuBar"
-        class="text-left bg-primary"
-        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-blue-5'"
-        elevated
-        reveal
-      >
+      <q-header v-model="showMenuBar" class="text-left bg-blue-5" elevated reveal>
+        <!-- Menu bar: -->
         <q-toolbar>
-          <q-btn
-            dense
-            flat
-            icon="mdi-menu"
-            round
-            @click="store.app.showLeftDrawer = !store.app.showLeftDrawer"
-          />
-          <!-- <q-toolbar-title
-            class="my-title"
-            :shrink="true"
-            style="cursor: pointer"
-            @click="router.push('/')"
-          >
+          <q-btn dense flat icon="mdi-menu" round @click="showLeftDrawer = !showLeftDrawer" />
+          <q-toolbar-title class="my-title" :shrink="true" style="cursor: pointer" @click="router.push('/')">
             <q-avatar>
-              <img src="./assets/Jedlik_small.png" />
+              <img src="src/assets/Jedlik_small.png" />
             </q-avatar>
             Jedlik
-          </q-toolbar-title> -->
-          <q-toolbar-title :shrink="true" style="cursor: pointer" @click="router.push('/')">
-            HaHu
           </q-toolbar-title>
+          <q-toolbar-title :shrink="true" style="cursor: pointer" @click="router.push('/')">HaHu</q-toolbar-title>
           <q-btn clickable :disable="store.app.disableEmptyPage" flat label="Kezdő oldal" to="/" />
-          <q-btn
-            clickable
-            :disable="!store.app.disableEmptyPage"
-            flat
-            label="Üres oldal"
-            to="/empty"
-          />
+          <q-btn clickable :disable="!store.app.disableEmptyPage" flat label="Üres oldal" to="/empty" />
           <q-toolbar-title class="my-title" />
 
           <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
           <q-btn
-            dense
+            :class="{ active: $route.path === '/empty' }"
+            clickable
             flat
-            icon="mdi-menu"
-            round
-            @click="store.app.showRightDrawer = !store.app.showRightDrawer"
+            icon="mdi-application-outline"
+            label="Empty"
+            no-caps
+            to="/empty"
           />
+          <q-toolbar-title class="my-title" />
+          <q-btn dense flat icon="mdi-menu" round @click="showRightDrawer = !showRightDrawer" />
         </q-toolbar>
       </q-header>
-      <!-- #endregion -->
 
-      <!-- #region 2. Left drawer: -->
-      <q-drawer
-        v-model="store.app.showLeftDrawer"
-        bordered
-        :breakpoint="500"
-        :class="$q.dark.isActive ? 'bg-grey-8' : 'bg-blue-1'"
-        :width="200"
-      >
-        <q-scroll-area class="fit">
-          <q-list>
-            <template v-for="(menuItem, index) in menuItems()" :key="index">
-              <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
-                <q-item-section avatar>
-                  <q-icon :name="menuItem.icon" />
-                </q-item-section>
-                <q-item-section>
-                  {{ menuItem.text }}
-                </q-item-section>
-              </q-item>
-              <q-separator v-if="menuItem.separator" :key="'sep' + index" />
-            </template>
-            <q-separator />
-          </q-list>
+      <!-- Left drawer: -->
+      <q-drawer v-model="showLeftDrawer" bordered :breakpoint="600" :width="200">
+        <q-scroll-area class="fit bg-blue-1">
+          <q-btn
+            align="left"
+            class="full-width q-ma-xs"
+            :class="{ active: $route.path === '/' }"
+            clickable
+            flat
+            icon="mdi-home"
+            label="Home"
+            no-caps
+            to="/"
+          />
+          <q-btn
+            align="left"
+            class="full-width q-ma-xs"
+            :class="{ active: $route.path === '/empty' }"
+            clickable
+            flat
+            icon="mdi-application-outline"
+            label="Empty"
+            no-caps
+            to="/empty"
+          />
         </q-scroll-area>
       </q-drawer>
-      <!-- #endregion -->
 
-      <!-- #region 3. Right drawer: -->
-      <q-drawer
-        v-model="store.app.showRightDrawer"
-        bordered
-        :breakpoint="500"
-        :class="$q.dark.isActive ? 'bg-grey-8' : 'bg-blue-1'"
-        side="right"
-        :width="200"
-      >
+      <!-- Right drawer: -->
+      <q-drawer v-model="showRightDrawer" bordered :breakpoint="800" class="bg-blue-1" side="right" :width="200">
         <q-scroll-area class="fit">
           <div class="q-ma-sm text-center">
             You must start JSON server (with: "npm run backend") before try these links!
           </div>
+          <<<<<<< HEAD
           <q-list>
             <template v-for="(menuItem, index) in menuItems()" :key="index">
               <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
@@ -143,26 +122,63 @@
             </template>
             <q-separator />
           </q-list>
+          =======
+          <q-btn
+            align="left"
+            class="full-width q-ma-xs"
+            :class="{ active: $route.path === '/xtable' }"
+            clickable
+            flat
+            icon="mdi-table"
+            label="xTable"
+            no-caps
+            to="/xtable"
+          />
+          <q-btn
+            align="left"
+            class="full-width q-ma-xs"
+            :class="{ active: $route.path === '/xcard' }"
+            clickable
+            flat
+            icon="mdi-card-account-details"
+            label="xCard"
+            no-caps
+            to="/xcard"
+          />
+          <q-btn
+            align="left"
+            class="full-width q-ma-xs"
+            :class="{ active: $route.path === '/xcarousel' }"
+            clickable
+            flat
+            icon="mdi-view-carousel-outline"
+            label="xCarousel"
+            no-caps
+            to="/xcarousel"
+          />
+          <q-btn
+            align="left"
+            class="full-width q-ma-xs"
+            :class="{ active: $route.path === '/xhelp' }"
+            clickable
+            flat
+            icon="mdi-lifebuoy"
+            label="xHelp"
+            no-caps
+            to="/xhelp"
+          />
+          >>>>>>> a34c28910878241df2712693abe9c689c214c4e7
         </q-scroll-area>
       </q-drawer>
-      <!-- #endregion -->
 
-      <!-- #region 4. Taskbar: -->
-      <q-footer
-        v-model="store.app.showTaskBar"
-        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-blue-5'"
-        elevated
-        reveal
-      >
+      <!-- Status bar: -->
+      <q-footer v-model="showStatusBar" class="bg-blue-5" elevated reveal>
         <q-toolbar>
-          <q-toolbar-title class="text-center my-title">
-            Jedlik frontend template 2023
-          </q-toolbar-title>
+          <q-toolbar-title class="text-center my-title">Jedlik frontend template 2023</q-toolbar-title>
         </q-toolbar>
       </q-footer>
-      <!-- #endregion -->
 
-      <!-- #region 5. Main content (pages): -->
+      <!-- Main container (DON'T DELETE!) -->
       <q-page-container id="container">
         <router-view v-slot="{ Component }">
           <transition name="fade">
@@ -170,12 +186,15 @@
           </transition>
         </router-view>
       </q-page-container>
-      <!-- #endregion -->
     </q-layout>
   </div>
 </template>
 
 <style lang="scss">
+  .active {
+    background-color: #44a5f1;
+    color: yellow;
+  }
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity 0.5s ease;

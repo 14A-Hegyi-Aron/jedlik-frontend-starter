@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useStore } from "../store/store";
+  import { useStore } from "src/store/store";
   import { Dialog } from "quasar";
   // import { onMounted } from "vue";
   // import router from "src/router";
