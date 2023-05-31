@@ -57,20 +57,20 @@
               option-label="categoryNameField"
               option-value="id"
               :options="store.one.documents"
-              :rules="[(v) => v != null || 'Please choose one!']"
+              :rules="[(v: any) => v != null || 'Please choose one!']"
             />
             <q-input
               v-model="store.many.document.titleField"
               filled
               label="titleField"
-              :rules="[(v) => (v != null && v != '') || 'Please fill in!']"
+              :rules="[(v: any) => (v != null && v != '') || 'Please fill in!']"
               type="text"
             />
             <q-input
               v-model="store.many.document.descField"
               filled
               label="descField"
-              :rules="[(v) => (v != null && v != '') || 'Please fill in!']"
+              :rules="[(v: any) => (v != null && v != '') || 'Please fill in!']"
               type="textarea"
             />
             <q-input
@@ -78,7 +78,7 @@
               clearable
               filled
               label="dateField"
-              :rules="[(v) => (v != null && v != '') || 'dateField - Choose!']"
+              :rules="[(v: any) => (v != null && v != '') || 'dateField - Choose!']"
               type="date"
             />
             <div class="row justify-end q-mb-md">
@@ -88,7 +88,7 @@
               v-model="store.many.document.priceField"
               filled
               label="priceField"
-              :rules="[(v) => (v != null && v != '') || 'Please fill in!']"
+              :rules="[(v: any) => (v != null && v != '') || 'Please fill in!']"
               type="number"
             />
             <q-input
@@ -96,7 +96,7 @@
               clearable
               filled
               label="imgField"
-              :rules="[(v) => (v != null && v != '') || 'Please fill in!']"
+              :rules="[(v: any) => (v != null && v != '') || 'Please fill in!']"
               type="url"
             />
             <div class="row justify-center">
